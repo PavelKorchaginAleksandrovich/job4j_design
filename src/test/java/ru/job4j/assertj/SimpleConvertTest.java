@@ -41,8 +41,7 @@ class SimpleConvertTest {
                 .contains("second")
                 .contains("first")
                 .containsAnyOf("zero", "second", "six")
-                .doesNotContain("six")
-                .startsWith("first", "second");
+                .doesNotContain("six");
     }
 
     @Test
