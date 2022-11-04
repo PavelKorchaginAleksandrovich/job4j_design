@@ -11,7 +11,6 @@ public class EvenNumbersIterator implements Iterator<Integer> {
     public EvenNumbersIterator(int[] data) {
         this.data = data;
     }
-
     @Override
     public boolean hasNext() {
         movePointerToEvenNumber();
