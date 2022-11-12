@@ -8,39 +8,39 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     private int modCount;
 
     public SimpleArrayList(int capacity) {
-        this.container = (T[]) new Object[capacity];
+        container = (T[]) new Object[capacity];
     }
 
     @Override
     public void add(T value) {
-        if (this.size >= this.container.length) {
-            this.container = Arrays.copyOf(this.container, this.container.length * 2);
+        if (size >= container.length) {
+            grow();
         }
-        this.container[size++] = value;
+        container[size++] = value;
         modCount++;
     }
 
     @Override
     public T set(int index, T newValue) {
-        checkIndex(index);
+        Objects.checkIndex(index, size);
         T prev = this.container[index];
-        this.container[index] = newValue;
+        container[index] = newValue;
         return prev;
     }
 
     @Override
     public T remove(int index) {
-        checkIndex(index);
-        T removed = this.container[index];
-        System.arraycopy(this.container, index + 1, this.container, index, this.size - index - 1);
-        this.container[--size] = null;
+        Objects.checkIndex(index, size);
+        T removed = container[index];
+        System.arraycopy(container, index + 1, container, index, size - index - 1);
+        container[--size] = null;
         modCount++;
         return removed;
     }
 
     @Override
     public T get(int index) {
-        checkIndex(index);
+        Objects.checkIndex(index, size);
         return this.container[index];
     }
 
@@ -56,26 +56,23 @@ public class SimpleArrayList<T> implements SimpleList<T> {
             final int expectedModCount  = modCount;
             @Override
             public boolean hasNext() {
-                return cursor < size;
-            }
-
-            @Override
-            public T next() {
                 if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException();
                 }
-                if (cursor >= size) {
+                return cursor < size;
+            }
+            @Override
+            public T next() {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 return (T) container[cursor++];
-
             }
-
         };
     }
-    private void checkIndex(int index) {
-      if (index < 0 || index >= size) {
-          throw new IndexOutOfBoundsException();
-      }
+
+    private void grow() {
+        int length = (container.length == 0) ?  1 : container.length;
+        container = Arrays.copyOf(container, length * 2);
     }
 }
