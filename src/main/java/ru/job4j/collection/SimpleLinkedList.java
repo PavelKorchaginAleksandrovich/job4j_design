@@ -39,12 +39,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         return new Itr();
     }
 
-    private void checkIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
-    }
-
     private class Itr implements Iterator<E> {
         private final int  expectedModCount = modCount;
         Node<E> current = first;
