@@ -53,6 +53,7 @@ class SimpleConvertTest {
                 .containsValues(1, 4)
                 .containsEntry("three", 2)
                 .doesNotContainKey("zero")
-                .doesNotContainValue(5);
+                .doesNotContainValue(5)
+                .containsAnyOf(Map.entry("four", 3), Map.entry("four", 4));
     }
 }
