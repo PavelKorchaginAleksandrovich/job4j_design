@@ -22,7 +22,6 @@ public class SimpleSet<T> implements Set<T> {
     public boolean contains(T value) {
         boolean hasDuplicate = false;
         for (int i = 0; i < set.size(); i++) {
-            //if (set.get(i).equals(value)) {
             if (Objects.equals(set.get(i), value)) {
                     hasDuplicate = true;
                     break;
