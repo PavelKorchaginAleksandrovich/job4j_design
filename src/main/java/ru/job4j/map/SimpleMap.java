@@ -43,7 +43,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private int indexFor(int hash) {
         return hash % capacity;
     }
-
     private void expand() {
         capacity *= 2;
         MapEntry[] newContainer = new MapEntry[capacity];
@@ -54,21 +53,18 @@ public class SimpleMap<K, V> implements Map<K, V> {
         }
         table = newContainer;
     }
-
     @Override
     public V get(K key) {
         int keyHashCode = Objects.hashCode(key);
         MapEntry element = table[indexFor(hash(keyHashCode))];
-        return element == null ? null : (keyHashCode == Objects.hashCode(element.key) && Objects.equals(key, element.key) ? (V) element.value : null);
+        return element == null ? null : (equalsByHasnAndEquals(element.key, key) ? (V) element.value : null);
     }
-
     @Override
     public boolean remove(K key) {
         boolean result = false;
-        int keyHashCode = Objects.hashCode(key);
-        int index = indexFor(hash(keyHashCode));
+        int index = indexByKey(key);
         MapEntry element = table[index];
-        if (element != null && keyHashCode == Objects.hashCode(element.key) && Objects.equals(key, element.key)) {
+        if (element != null && equalsByHasnAndEquals(element.key, key)) {
             table[index] = null;
             count--;
             modCount++;
@@ -77,6 +73,13 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return result;
     }
 
+    private int indexByKey(K key) {
+        return indexFor(Objects.hashCode(key));
+    }
+
+    private boolean equalsByHasnAndEquals(Object o1, Object o2) {
+        return Objects.hashCode(o1) == Objects.hashCode(o2) && Objects.equals(o1, o2);
+    }
     @Override
     public Iterator<K> iterator() {
         return new Itr<>();
