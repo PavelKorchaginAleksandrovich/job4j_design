@@ -27,7 +27,6 @@ public class LogFilter {
     }
 
     public static void main(String[] args) {
-        LogFilter logFilter = new LogFilter();
-        logFilter.filter("log.txt").stream().forEach(System.out::println);
+       new LogFilter().filter("log.txt").stream().forEach(System.out::println);
     }
 }
