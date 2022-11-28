@@ -19,15 +19,17 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            List<String> outList = read.lines().filter(line -> !line.split("#")[0].isBlank()).toList();
-            for (String line: outList) {
-                String lineWithoutComment = line.split("#")[0];
-                int equalIndex = lineWithoutComment.indexOf("=");
-                if (equalIndex <= 0 || equalIndex == lineWithoutComment.length() - 1) {
+            String line;
+            while ((line = read.readLine()) != null) {
+                if (line.isBlank() || line.startsWith("#")) {
+                    continue;
+                }
+                int equalIndex = line.indexOf("=");
+                if (equalIndex <= 0 || equalIndex == line.length() - 1) {
                     throw new IllegalArgumentException();
                 }
-                String key = lineWithoutComment.substring(0, equalIndex);
-                String value = lineWithoutComment.substring(equalIndex + 1);
+                String key = line.substring(0, equalIndex);
+                String value = line.substring(equalIndex + 1);
                 values.put(key, value);
             }
         } catch (IOException e) {
