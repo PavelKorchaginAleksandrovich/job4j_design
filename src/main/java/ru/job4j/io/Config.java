@@ -26,7 +26,9 @@ public class Config {
                 }
                 int equalIndex = line.indexOf("=");
                 if (equalIndex <= 0 || equalIndex == line.length() - 1) {
-                    throw new IllegalArgumentException();
+                    StringBuilder msg = new StringBuilder("The line does not match pattern key=value: ");
+                    msg.append(line);
+                    throw new IllegalArgumentException(msg.toString());
                 }
                 String key = line.substring(0, equalIndex);
                 String value = line.substring(equalIndex + 1);
