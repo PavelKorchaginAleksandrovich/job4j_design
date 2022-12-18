@@ -9,6 +9,9 @@ public class SimpleQueue<T> {
     private int outSize;
 
     public T poll() {
+        if (inSize == 0 && outSize == 0) {
+            throw new NoSuchElementException();
+        }
         if (outSize == 0) {
             for (int i = 0; i < inSize; i++) {
                 out.push(in.pop());
