@@ -13,9 +13,21 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    String params = in.readLine();
-                    if (params != null && params.contains("msg=Bye")) {
-                        server.close();
+                    String paramsLine = in.readLine();
+                    if (paramsLine != null && !paramsLine.isEmpty()) {
+                        int msgBegin = paramsLine.indexOf("msg=") + 4;
+                        if (msgBegin != 3) {
+                            int msgEnd = paramsLine.indexOf(" ", msgBegin);
+                            msgEnd = msgEnd == -1 ? paramsLine.length() : msgEnd;
+                            String msg = paramsLine.substring(msgBegin, msgEnd);
+                            if (msg.equals("Exit")) {
+                                server.close();
+                            } else if (msg.equals("Hello")) {
+                                out.write(msg.getBytes());
+                            } else {
+                                out.write("What".getBytes());
+                            }
+                        }
                     }
                     out.flush();
                 }
