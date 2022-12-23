@@ -7,7 +7,7 @@ public class Matrix {
     public static void main(String[] args) {
         String matrix = convertMatrix(getMatrix(10));
         try {
-            FileOutputStream out = new FileOutputStream("matrix.txt");
+            FileOutputStream out = new FileOutputStream("data/matrix.txt");
             out.write(matrix.getBytes());
         } catch (IOException e) {
             e.printStackTrace();

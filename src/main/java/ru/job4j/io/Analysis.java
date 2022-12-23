@@ -31,6 +31,6 @@ public class Analysis {
 
     public static void main(String[] args) {
         Analysis analysis = new Analysis();
-        analysis.unavailable("server.log", "unavailable.txt");
+        analysis.unavailable("data/server.log", "data/unavailable.txt");
     }
 }
