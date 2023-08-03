@@ -8,12 +8,10 @@ public class FileProperty {
     private long size;
 
     private String name;
-    private String path;
 
-    public FileProperty(long size, String name, String path) {
+    public FileProperty(long size, String name) {
         this.size = size;
         this.name = name;
-        this.path = path;
     }
 
     public long getSize() {
@@ -26,10 +24,6 @@ public class FileProperty {
 
     public String getName() {
         return name;
-    }
-
-    public String getPath() {
-        return path;
     }
 
     public void setName(String name) {
