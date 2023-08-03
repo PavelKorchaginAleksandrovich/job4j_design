@@ -9,11 +9,9 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-    if (args.length == 0) {
-        throw new IllegalArgumentException("");
-    }
-    Path start = Paths.get(args[0]);
-    search(start, p -> p.toFile().getName().endsWith(".java")).forEach(System.out::println);
+        checkArgs(args);
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(String.format(".%s", args[1]))).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) {
@@ -25,5 +23,9 @@ public class Search {
         }
         return searcher.getPaths();
     }
-
+    private static void checkArgs(String[] args) {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Wrong counts of arguments");
+        }
+    }
 }
