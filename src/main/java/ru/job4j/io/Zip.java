@@ -2,7 +2,6 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -23,7 +22,6 @@ public class Zip {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     public void packSingleFile(File source, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
@@ -36,18 +34,27 @@ public class Zip {
         }
     }
 
-
     public static void main(String[] args) {
         ArgsName names = ArgsName.of(args);
         checkArgs(names);
-        String targetFileName = names.get("o");
         Path path = Path.of(names.get("d"));
-        List<Path> paths = Search.search(path, p -> p.toFile().getName().endsWith(names.get("e")));
+        List<Path> paths = Search.search(path, p -> !p.toFile().getName().endsWith(names.get("e")));
         Zip zip = new Zip();
-        zip.packFiles(paths, Paths.get(targetFileName).toFile());
+        zip.packFiles(paths, new File(names.get("o")));
 
     }
     private static void checkArgs(ArgsName names) {
+        File file = new File(names.get("d"));
+        if (!file.exists()) {
+            throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
+        }
+        String extension = names.get("e");
+        if (!extension.startsWith(".")) {
+            throw new IllegalArgumentException("File extension must start with a dot");
+        }
+        if (extension.length() < 2) {
+            throw new IllegalArgumentException("File extension must be longer than 2");
+        }
         if (!names.get("o").endsWith(".zip")) {
             throw new IllegalArgumentException("Error: Argument 'o' does not end with '.zip'");
         }
