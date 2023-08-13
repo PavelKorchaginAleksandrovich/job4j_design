@@ -1,7 +1,7 @@
 
 create table type(
     id serial primary key,
-    name varchar(255),
+    name varchar(255)
 );
 
 create table product(
@@ -46,7 +46,7 @@ where lower(p.name) like '%мороженое%';
 select
     p.name
 from product as p
-where p.expired_date <= '2023-02-05';
+where p.expired_date <= CURRENT_DATE;
 
 select               
     p.name
