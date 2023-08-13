@@ -23,7 +23,7 @@ insert into product(name, price, expired_date, type_id) values ('Сыр росс
 insert into product(name, price, expired_date, type_id) values ('Сыр эдам', 300, '2023-02-01', 1);
 insert into product(name, price, expired_date, type_id) values ('Сыр фета', 400, '2023-02-01', 1);
 insert into product(name, price, expired_date, type_id) values ('Сыр брынза', 200, '2023-02-01', 1);
-insert into product(name, price, expired_date, type_id) values ('Молоко 3.2', 100, '2023-04-01', 2;
+insert into product(name, price, expired_date, type_id) values ('Молоко 3.2', 100, '2023-04-01', 2);
 insert into product(name, price, expired_date, type_id) values ('Мороженое эскимо', 50, '2023-02-01', 2);
 insert into product(name, price, expired_date, type_id) values ('Мороженое ленинградское', 60, '2023-02-01', 2);
 insert into product(name, price, expired_date, type_id) values ('Сахар', 60, '2026-01-01', 3);
