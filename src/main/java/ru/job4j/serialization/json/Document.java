@@ -6,6 +6,18 @@ public class Document {
     private String series;
     private String number;
 
+    public String getType() {
+        return type;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
     public Document(String type, String series, String number) {
         this.type = type;
         this.series = series;

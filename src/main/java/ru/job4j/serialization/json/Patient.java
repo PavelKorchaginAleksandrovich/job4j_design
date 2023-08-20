@@ -28,4 +28,24 @@ public class Patient  {
                 + ", document=" + document
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isMale() {
+        return male;
+    }
+
+    public String[] getEmails() {
+        return emails;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
 }
